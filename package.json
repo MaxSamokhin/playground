@@ -1,0 +1,54 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "./node_modules/.bin/webpack --config webpack.config.js",
+    "dev-server": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxSamokhin/playground.git"
+  },
+  "keywords": [],
+  "author": "Max Samokhin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxSamokhin/playground/issues"
+  },
+  "homepage": "https://github.com/MaxSamokhin/playground#readme",
+  "dependencies": {
+    "awesome-typescript-loader": "3.1.2",
+    "babel-core": "6.24.1",
+    "babel-loader": "7.0.0",
+    "babel-preset-env": "1.4.0",
+    "babel-preset-es2015": "6.24.1",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "3.0.2",
+    "file-loader": "^1.1.11",
+    "img-loader": "^3.0.0",
+    "node-sass": "^4.9.0",
+    "path": "^0.12.7",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "sass-loader": "^7.0.3",
+    "source-map-loader": "^0.2.3",
+    "typescript": "2.2.2",
+    "url-loader": "^1.0.1",
+    "webpack-dev-server": "2.4.5"
+  },
+  "devDependencies": {
+    "@types/react": "15.0.21",
+    "@types/react-dom": "0.14.23",
+    "@types/react-redux": "4.4.38",
+    "@types/react-router": "3.0.0",
+    "@types/react-router-redux": "5.0.1",
+    "webpack": "^3.8.1",
+    "webpack-cli": "^3.0.2"
+  }
+}
