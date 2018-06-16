@@ -1,7 +1,13 @@
 const HOME: string = '/';
-const SIGNIN: string = '/signin';
+const LOGIN: string = '/login';
+const NEWS: string = '/news';
+const PROFILE: string = '/profile';
+const LIST: string = '/list';
 
 export {
     HOME,
-    SIGNIN
+    LOGIN,
+    NEWS,
+    PROFILE,
+    LIST
 };

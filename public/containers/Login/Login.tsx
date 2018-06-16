@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-export default class BaseView extends React.Component<void, void> {
+export default class Login extends React.Component<void, void> {
 
-    public render() {
+    public render(): JSX.Element {
         return (
             <div className='login'>
                 <p>login component</p>

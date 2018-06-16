@@ -1,21 +1,19 @@
 import * as React from 'react';
-import * as RoutesMap from "../../service/RoutesMap/RoutesMap";
+import * as RoutesMap from '../../service/RoutesMap/RoutesMap';
 import {Link} from 'react-router-dom';
-
+import Header from '../../components/Header/Header';
 
 export default class BaseView extends React.Component<void, void> {
-    constructor() {
-        super();
-    }
-
-    public render() {
+    public render(): JSX.Element {
         return (
-            <div className='wrapper'>
+            <div className='content'>
 
-                <Link to={RoutesMap.HOME}>Главная</Link>
-                <Link to={RoutesMap.SIGNIN}>Войти</Link>
+                <Header/>
 
-                {this.props.children}
+                <section className='content__container'>
+                    {this.props.children}
+                </section>
+
             </div>
         );
     }
