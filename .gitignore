@@ -60,7 +60,13 @@ typings/
 # next.js build output
 .next
 
+jspm_packages/
+*.swp
+tags
+*.log
+*.jsx
 package-lock.json
 dist
 .idea
 public/built
+.js.map

@@ -16,20 +16,19 @@ module.exports = {
     },
 
     watch: true,
-    devtool: 'source-map',
 
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 loader: 'awesome-typescript-loader',
-                exclude: /node_modules/
+                exclude: [/node_modules/]
             },
             {
                 enforce: 'pre',
                 test: /\.js$/,
-                use: ['babel-loader', 'source-map-loader'],
-                exclude: /node_modules/
+                use: ['babel-loader'],
+                exclude: [/node_modules/]
             },
             {
                 test: /\.(css|sass|scss)$/,
@@ -40,12 +39,12 @@ module.exports = {
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loader: 'url-loader?limit=10000!img-loader?progressive=true'
+                loader: 'url-loader?limit=10000!img-loader?progressive=true',
             },
 
             {
                 test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-                loader: 'file-loader?name=fonts/[name].[ext]'
+                loader: 'file-loader?name=fonts/[name].[ext]',
             }
         ]
     },
