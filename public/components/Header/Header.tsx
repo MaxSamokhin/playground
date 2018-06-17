@@ -4,9 +4,6 @@ import {Link} from 'react-router-dom';
 
 export default class Header extends React.Component<any, void> {
     public render(): JSX.Element {
-
-        console.log(this.props);
-
         return (
             <div className='header'>
                 <ul className='header__ul'>

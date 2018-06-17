@@ -1,13 +1,15 @@
 import * as React from 'react';
+import {Route, BrowserRouter, Switch} from 'react-router-dom';
+
 import News from './containers/News/News';
-import * as RoutesMap from './service/RoutesMap/RoutesMap';
 import Profile from './containers/Profile/Profile';
 import Home from './containers/Home/Home';
 import SignIn from './containers/Login/Login';
 import List from './containers/List/List';
 import BaseView from './containers/BaseView/BaseView';
+import NotFound from './containers/NotFound/NotFound';
 
-import {Route, BrowserRouter, Switch} from 'react-router-dom';
+import * as RoutesMap from './service/RoutesMap/RoutesMap';
 
 export const routes = <BaseView>
     <Switch>
@@ -16,5 +18,6 @@ export const routes = <BaseView>
         <Route path={ RoutesMap.NEWS } component={News}/>
         <Route path={ RoutesMap.PROFILE } component={Profile}/>
         <Route path={ RoutesMap.LIST } component={List}/>
+        <Route component={NotFound}/>
     </Switch>
 </BaseView>;
