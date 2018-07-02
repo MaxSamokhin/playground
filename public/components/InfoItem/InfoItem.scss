@@ -1,0 +1,10 @@
+.info-item {
+  display: flex;
+  flex-flow: row nowrap;
+
+  &__label {
+    font-weight: bold;
+    margin-right: 5px;
+
+  }
+}

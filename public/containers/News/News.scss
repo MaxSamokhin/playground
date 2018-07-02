@@ -1,0 +1,13 @@
+.news {
+
+  &__count {
+    margin: 15px auto 20px;
+  }
+
+  &__article {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+
+}

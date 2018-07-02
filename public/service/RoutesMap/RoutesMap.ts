@@ -2,7 +2,6 @@ const HOME: string = '/';
 const LOGIN: string = '/login';
 const NEWS: string = '/news';
 const PROFILE: string = '/profile';
-const LIST: string = '/list';
 const NOT_FOUND: string = '*';
 
 export {
@@ -10,6 +9,5 @@ export {
     LOGIN,
     NEWS,
     PROFILE,
-    LIST,
     NOT_FOUND
 };

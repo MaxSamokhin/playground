@@ -1,0 +1,23 @@
+.button {
+  padding: 0 0;
+  display: inline-block;
+  cursor: pointer;
+  width: 100px;
+  background-color: rgb(245, 242, 237);
+  height: 40px;
+  border-radius: 19px;
+  text-align: center;
+  line-height: 40px;
+  margin: 5px 15px;
+  box-shadow: 0 5px 0 #3C93D5;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+
+  &:hover {
+    background-color: rgba(25, 28, 223, 0.72);
+    color: white;
+    cursor: pointer;
+  }
+}
+

@@ -1,0 +1,18 @@
+.article {
+  max-width: 295px;
+  margin: 10px 10px;
+
+  background-color: rgb(245, 242, 237);
+  border-style: dashed;
+  border-radius: 40px;
+  border-color: #3C93D5;
+
+  padding:  5px 15px 15px;
+
+  &__title {
+    margin: 15px 8px;
+    font-size: 18px;
+  }
+
+}
+

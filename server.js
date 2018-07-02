@@ -4,10 +4,9 @@ const express = require('express');
 const app = express();
 
 app.use('/', express.static('public'));
-app.use('/login', express.static('public'));
-app.use('/news', express.static('public'));
-app.use('/profile', express.static('public'));
-app.use('/list', express.static('public'));
+app.get(/.*/, function root(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 const port = process.env.PORT || 8001;
 

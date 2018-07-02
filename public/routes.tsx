@@ -5,7 +5,6 @@ import News from './containers/News/News';
 import Profile from './containers/Profile/Profile';
 import Home from './containers/Home/Home';
 import SignIn from './containers/Login/Login';
-import List from './containers/List/List';
 import BaseView from './containers/BaseView/BaseView';
 import NotFound from './containers/NotFound/NotFound';
 
@@ -17,7 +16,6 @@ export const routes = <BaseView>
         <Route path={ RoutesMap.LOGIN } component={SignIn}/>
         <Route path={ RoutesMap.NEWS } component={News}/>
         <Route path={ RoutesMap.PROFILE } component={Profile}/>
-        <Route path={ RoutesMap.LIST } component={List}/>
         <Route component={NotFound}/>
     </Switch>
 </BaseView>;
