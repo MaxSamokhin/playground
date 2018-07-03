@@ -5,7 +5,7 @@ interface IProps {
     pathTo?: string;
 }
 
-export default class MyLink extends React.Component<IProps, void> {
+export default class ButtonLink extends React.Component<IProps, void> {
     public render(): JSX.Element {
 
         const pathTo = this.props.pathTo;

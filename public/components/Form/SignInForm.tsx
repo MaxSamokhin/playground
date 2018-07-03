@@ -1,20 +1,35 @@
 import * as React from 'react';
 import Button from '../Button/Button';
 import './SignInForm.scss';
-import FormItem from '../FormItem/FormItem';
+import FormItem from './FormItem/FormItem';
+
+const fieldsForm = [
+    {
+        type: 'email',
+        label: 'Почта',
+        placeholder: 'почта'
+    },
+    {
+        type: 'password',
+        label: 'Пароль',
+        placeholder: 'пароль'
+    }
+];
 
 export default class SignInForm extends React.Component<any, void> {
 
     public render(): JSX.Element {
 
-        console.log(this.props);
+        const fields = fieldsForm.map(({type, label, placeholder}, index) => <FormItem
+            type={type}
+            label={label}
+            placeholder={placeholder}
+            key={index}
+        />);
 
         return (
             <form className={'form'}>
-
-                <FormItem type={'email'} label={'Почта'} placeholder={'почта'}/>
-                <FormItem type={'password'} label={'Пароль'} placeholder={'пароль'}/>
-
+                {fields}
                 <Button
                     classBtn={'form__button'}
                     text={'Войти'}

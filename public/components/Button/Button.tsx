@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './Button.scss';
-import MyLink from '../../components/MyLink/MyLink';
+import ButtonLink from './ButtonLink/ButtonLink';
 
 interface IProps {
     typeBtn: string;
@@ -16,13 +16,13 @@ export default class Button extends React.Component<IProps, void> {
         const className = `button ${classBtn}`;
 
         return (
-            <MyLink pathTo={pathTo}>
+            <ButtonLink pathTo={pathTo}>
                 <button
                     className={className}
                     type={typeBtn}>
                     {text}
                 </button>
-            </MyLink>
+            </ButtonLink>
         );
     }
 }

@@ -5,6 +5,7 @@ interface IProps {
     label: string;
     type: string;
     placeholder: string;
+    key: number;
 }
 
 export default class FormItem extends React.Component<IProps, void> {

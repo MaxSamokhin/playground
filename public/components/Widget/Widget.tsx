@@ -2,24 +2,24 @@ import * as React from 'react';
 import './Widget.scss';
 
 interface IProps {
-    path: string;
+    link: string;
     srcIcon: string;
 }
 
 export default class Widget extends React.Component<IProps, void> {
     public render(): JSX.Element {
-        const {path, srcIcon} = this.props;
+        const {link, srcIcon} = this.props;
 
         return (
-            <a href={path}
+            <a href={link}
                className={'widget'}
-               target={'_blank'}>
+               target={'_blank'}
+            >
 
                 <img className={'widget__image'}
                      src={srcIcon}
                      alt={'ссылка'}
                 />
-
             </a>
         );
     }

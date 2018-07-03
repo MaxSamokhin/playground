@@ -11,7 +11,7 @@ import Store from './store/Store';
 
 const App = () => (
     <Provider store={Store}>
-        <BrowserRouter children={ routes } />
+        <BrowserRouter children={routes}/>
     </Provider>
 );
 
