@@ -3,6 +3,10 @@ import Widget from '../../components/Widget/Widget';
 import InfoItem from '../../components/InfoItem/InfoItem';
 import './ProfileView.scss';
 import Avatar from '../../components/Avatar/Avatar';
+import {SRC_ICON, FIELDS_USER_INFO} from '../../constants/Profile/Profile.constant';
+// import { Redirect } from 'react-router-dom';
+import {LOGIN} from '../../service/RoutesMap/RoutesMap';
+import {Redirect} from 'react-router';
 
 const data = {
     userId: 1,
@@ -41,24 +45,23 @@ const data = {
     ]
 };
 
-export default class Profile extends React.Component<void, void> {
+interface IState {
+    redirectToSignInPage: boolean;
+}
 
-    private fields = {
-        name: 'Имя',
-        city: 'Город',
-        languages: 'Язык'
-    };
-
-    private srcIcon = {
-        vk: './../../media/images/vk.png',
-        telegram: './../../media/images/telegram.png',
-        mail: './../../media/images/mail.png',
-        youtube: './../../media/images/youtube.png',
-        yandex: './../../media/images/ya.jpg',
-        default: './../../media/images/defaultWidget.png'
-    };
+export default class Profile extends React.Component<void, IState> {
+    constructor() {
+        super();
+        this.state = {
+            redirectToSignInPage: true
+        };
+    }
 
     public render(): JSX.Element {
+
+        if (this.state.redirectToSignInPage) {
+            return <Redirect to={LOGIN} />;
+        }
 
         const userInfo = Object.entries(data).map(([key, value], index) => {
             if (key === 'social' || key === 'userId') {
@@ -66,7 +69,7 @@ export default class Profile extends React.Component<void, void> {
             }
 
             return <InfoItem
-                label={this.fields[key]}
+                label={FIELDS_USER_INFO[key]}
                 value={Array.isArray(value) ? value.join(' ') : value.toString()}
                 key={index}
             />;
@@ -75,7 +78,7 @@ export default class Profile extends React.Component<void, void> {
         const widgets = data.social.map(({label, link}, index) => <Widget
             link={link}
             key={index}
-            srcIcon={this.srcIcon[label] || this.srcIcon.default}
+            srcIcon={SRC_ICON[label] || SRC_ICON.default}
         />);
 
         return (

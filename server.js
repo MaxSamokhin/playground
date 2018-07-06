@@ -8,7 +8,7 @@ app.get(/.*/, function root(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-const port = process.env.PORT || 8001;
+const port = process.env.PORT || 7001;
 
 app.listen(port, () => {
     console.log(`App start on port ${port}`);
