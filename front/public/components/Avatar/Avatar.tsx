@@ -6,7 +6,7 @@ interface IProps {
     alt: string;
 }
 
-export default class Avatar extends React.Component<IProps, void> {
+export default class Avatar extends React.Component<IProps, null> {
     public render(): JSX.Element {
         const {src, alt} = this.props;
         const srcImage = src || './../../media/images/dafaultAvatar.png';

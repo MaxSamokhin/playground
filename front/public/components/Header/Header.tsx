@@ -27,7 +27,10 @@ const buttons = [
     }
 ];
 
-export default class Header extends React.Component<any, void> {
+export default class Header extends React.Component<any, null> {
+    constructor() {
+        super()
+    }
     public render(): JSX.Element {
 
         const buttonsBlock = buttons.map(({text, type, pathTo}, index) => <li

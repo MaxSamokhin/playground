@@ -9,7 +9,11 @@ interface IProps {
     pathTo?: string;
 }
 
-export default class Button extends React.Component<IProps, void> {
+export default class Button extends React.Component<IProps, null> {
+    constructor() {
+        super()
+    }
+
     public render(): JSX.Element {
 
         const {typeBtn, classBtn, text, pathTo} = this.props;

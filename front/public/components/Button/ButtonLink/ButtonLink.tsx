@@ -5,7 +5,10 @@ interface IProps {
     pathTo?: string;
 }
 
-export default class ButtonLink extends React.Component<IProps, void> {
+export default class ButtonLink extends React.Component<IProps, null> {
+    constructor() {
+        super()
+    }
     public render(): JSX.Element {
 
         const pathTo = this.props.pathTo;

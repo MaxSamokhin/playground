@@ -6,7 +6,10 @@ interface IProps {
     value: string;
 }
 
-export default class InfoItem extends React.Component<IProps, void> {
+export default class InfoItem extends React.Component<IProps, null> {
+    constructor() {
+        super()
+    }
     public render(): JSX.Element {
         const {label, value} = this.props;
         return (

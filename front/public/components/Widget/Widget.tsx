@@ -6,7 +6,7 @@ interface IProps {
     srcIcon: string;
 }
 
-export default class Widget extends React.Component<IProps, void> {
+export default class Widget extends React.Component<IProps, any> {
     public render(): JSX.Element {
         const {link, srcIcon} = this.props;
 

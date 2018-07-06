@@ -4,9 +4,8 @@ import InfoItem from '../../components/InfoItem/InfoItem';
 import './ProfileView.scss';
 import Avatar from '../../components/Avatar/Avatar';
 import {SRC_ICON, FIELDS_USER_INFO} from '../../constants/Profile/Profile.constant';
-// import { Redirect } from 'react-router-dom';
 import {LOGIN} from '../../service/RoutesMap/RoutesMap';
-import {Redirect} from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 const data = {
     userId: 1,
