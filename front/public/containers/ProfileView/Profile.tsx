@@ -3,9 +3,10 @@ import Widget from '../../components/Widget/Widget';
 import InfoItem from '../../components/InfoItem/InfoItem';
 import './ProfileView.scss';
 import Avatar from '../../components/Avatar/Avatar';
-import {SRC_ICON, FIELDS_USER_INFO} from '../../constants/Profile/Profile.constant';
+import {FIELDS_USER_INFO, SRC_ICON} from '../../constants/Profile/Profile.constant';
 import {LOGIN} from '../../service/RoutesMap/RoutesMap';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 const data = {
     userId: 1,
@@ -44,22 +45,19 @@ const data = {
     ]
 };
 
-interface IState {
-    redirectToSignInPage: boolean;
+interface IProps {
+    dataUser: boolean;
 }
 
-export default class Profile extends React.Component<void, IState> {
+class Profile extends React.Component<IProps, null> {
     constructor() {
         super();
-        this.state = {
-            redirectToSignInPage: true
-        };
     }
 
     public render(): JSX.Element {
 
-        if (this.state.redirectToSignInPage) {
-            return <Redirect to={LOGIN} />;
+        if (this.props.dataUser === null) {
+            return <Redirect to={LOGIN}/>;
         }
 
         const userInfo = Object.entries(data).map(([key, value], index) => {
@@ -98,3 +96,11 @@ export default class Profile extends React.Component<void, IState> {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        dataUser: state.userState.data
+    };
+}
+
+export default connect(mapStateToProps)(Profile);

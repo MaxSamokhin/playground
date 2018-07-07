@@ -15,7 +15,7 @@ export default class NewsCount extends React.Component<IProps, void> {
             <div className={'news__count'}>
                 {
                     count ?
-                        <div>Всего новостей: {count}</div> :
+                        <div>Всего новостей: {count} </div> :
                         <div>Нет новостей</div>
                 }
 

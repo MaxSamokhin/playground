@@ -3,6 +3,8 @@ import * as RoutesMap from '../../service/RoutesMap/RoutesMap';
 import {Link} from 'react-router-dom';
 import './Header.scss';
 import Button from '../Button/Button';
+import {connect} from 'react-redux';
+import * as UserAction from '../../actions/User/User.actions';
 
 const buttons = [
     {
@@ -11,9 +13,9 @@ const buttons = [
         pathTo: RoutesMap.HOME
     },
     {
-        text: 'Войти',
+        text: 'Новости',
         type: 'button',
-        pathTo: RoutesMap.LOGIN
+        pathTo: RoutesMap.NEWS
     },
     {
         text: 'Профиль',
@@ -21,30 +23,42 @@ const buttons = [
         pathTo: RoutesMap.PROFILE
     },
     {
-        text: 'Новости',
+        text: 'Войти',
         type: 'button',
-        pathTo: RoutesMap.NEWS
+        pathTo: RoutesMap.LOGIN
     }
 ];
 
-export default class Header extends React.Component<any, null> {
+interface IProps {
+    data: any;
+    onLogoutUser: () => {};
+}
+
+class Header extends React.Component<IProps, null> {
+    private onClickHandle: () => {};
     constructor() {
-        super()
+        super();
     }
+
     public render(): JSX.Element {
 
-        const buttonsBlock = buttons.map(({text, type, pathTo}, index) => <li
-            className={'header__li'}
-            key={index}>
+        const buttonsBlock = buttons.map(({text, type, pathTo}, index) => {
+            this.onClickHandle = () => void 0;
+            if (this.props.data !== null && text === 'Войти') {
+                this.onClickHandle = this.props.onLogoutUser;
+                text = 'Выйти';
+            }
 
-            <Button
-                text={text}
-                typeBtn={type}
-                pathTo={pathTo}
-            />
-
-        </li>);
-
+            return <li className={'header__li'}
+                       key={index}>
+                <Button
+                    text={text}
+                    typeBtn={type}
+                    pathTo={pathTo}
+                    onClickButton={this.onClickHandle.bind(this)}
+                />
+            </li>;
+        });
         return (
             <div className={'header'}>
                 <ul className={'header__ul'}>
@@ -54,3 +68,15 @@ export default class Header extends React.Component<any, null> {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        data: state.userState.data
+    };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    onLogoutUser: () => dispatch(UserAction.logoutUser())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

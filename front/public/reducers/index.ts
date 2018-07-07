@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux';
-import list from './List/List';
+import userState from './User/User.reducers';
+import newsState from './News/News.reducers';
 
 const reducer = combineReducers({
-    list
+    userState,
+    newsState
 });
 
 export default reducer;

@@ -7,23 +7,25 @@ interface IProps {
     classBtn?: string;
     text: string;
     pathTo?: string;
+    onClickButton?: () => {};
 }
 
 export default class Button extends React.Component<IProps, null> {
     constructor() {
-        super()
+        super();
     }
 
     public render(): JSX.Element {
 
-        const {typeBtn, classBtn, text, pathTo} = this.props;
+        const {typeBtn, classBtn, text, pathTo, onClickButton} = this.props;
         const className = `button ${classBtn}`;
 
         return (
             <ButtonLink pathTo={pathTo}>
                 <button
                     className={className}
-                    type={typeBtn}>
+                    type={typeBtn}
+                    onClick={onClickButton}>
                     {text}
                 </button>
             </ButtonLink>

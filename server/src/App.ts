@@ -13,7 +13,8 @@ class App {
     constructor() {
         this.app = Express();
         this.app.use(cors({
-            origin: 'http://localhost:7001'
+            origin: 'http://127.0.0.1:7001',
+            credentials: true
         }));
         this.app.use(bodyParser.json());
         this.ids = {};
@@ -59,7 +60,7 @@ class App {
         const email: string = req.body.email || null;
         const password: string = req.body.password || null;
 
-        if (email !== 'test' || password !== 'test') {
+        if (email !== 'test@test.test' || password !== 'test') {
             res.status(401).json(VALIDATE_BAD).end();
             return;
         }
@@ -69,7 +70,6 @@ class App {
 
         res.cookie('auth', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
         res.status(200).json(VALIDATE_OK).end();
-
     }
 
     private userInfoController(req: Express.Request, res: Express.Response) {
