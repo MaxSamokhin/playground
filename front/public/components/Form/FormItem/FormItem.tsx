@@ -6,7 +6,7 @@ interface IProps {
     type: string;
     placeholder: string;
     key: number;
-    onChangeInputForm: () => {};
+    onChangeInputForm:any;
 }
 
 export default class FormItem extends React.Component<IProps, null> {

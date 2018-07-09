@@ -8,6 +8,7 @@ import FormItem from './../../components/Form/FormItem/FormItem';
 import * as UserAction from '../../actions/User/User.actions';
 import Loader from '../../components/Loader/Loader';
 import {PROFILE} from '../../service/RoutesMap/RoutesMap';
+import Notification from '../../components/Notification/Notification';
 
 const fieldsForm = [
     {
@@ -42,6 +43,9 @@ class LoginView extends React.Component<IProps, IState> {
             email: '',
             password: ''
         };
+
+        this.handleInputField = this.handleInputField.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
     public handleInputField(e) {
@@ -63,7 +67,7 @@ class LoginView extends React.Component<IProps, IState> {
                 label={label}
                 placeholder={placeholder}
                 key={index}
-                onChangeInputForm={this.handleInputField.bind(this)}
+                onChangeInputForm={this.handleInputField}
             />);
 
         if (this.state.redirect || this.props.data !== null) {
@@ -76,12 +80,13 @@ class LoginView extends React.Component<IProps, IState> {
                     this.props.isLoading ?
                         <Loader/> :
                         <div className={'signin'}>
+                            <Notification type={'info'} text={'test text'}/>
                             <form
                                 className={'form'}
-                                onSubmit={this.onFormSubmit.bind(this)}>
+                                onSubmit={this.onFormSubmit}>
                                 {fields}
                                 <Button
-                                    classBtn={'form__button'}
+                                    formBtn = {true}
                                     text={'Войти'}
                                     typeBtn={'submit'}
                                 />

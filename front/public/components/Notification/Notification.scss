@@ -1,0 +1,45 @@
+.notification {
+  position: fixed;
+  display: flex;
+  flex-flow: row nowrap;
+
+  top: 10px;
+  right: 20px;
+  z-index: 999999;
+  margin: 10px 0 17px;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5),
+  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  min-width: 240px;
+  height: 60px;
+  visibility: visible;
+  opacity: 0.8;
+
+  &__close {
+    display: inline-block;
+    margin-right: 11px;
+    font-weight: bold;
+    float: right;
+    font-size: 36px;
+    line-height: 60px;
+    color: white;
+    cursor: pointer;
+  }
+
+  &__text {
+    display: inline-block;
+    margin-left: 20px;
+    line-height: 60px;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    cursor: default;
+  }
+
+  &_info {
+    background: #3C93D5;;
+  }
+
+  &_error {
+    background: crimson;
+  }
+}

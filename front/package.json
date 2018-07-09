@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/MaxSamokhin/playground#readme",
   "dependencies": {
+    "classnames": "^2.2.6",
     "express": "^4.16.3",
     "react": "15.5.4",
     "react-dom": "15.5.4",

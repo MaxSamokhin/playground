@@ -35,7 +35,8 @@ interface IProps {
 }
 
 class Header extends React.Component<IProps, null> {
-    private onClickHandle: () => {};
+    private onClickHandle: any;
+
     constructor() {
         super();
     }
@@ -55,10 +56,11 @@ class Header extends React.Component<IProps, null> {
                     text={text}
                     typeBtn={type}
                     pathTo={pathTo}
-                    onClickButton={this.onClickHandle.bind(this)}
+                    onClickButton={this.onClickHandle}
                 />
             </li>;
         });
+
         return (
             <div className={'header'}>
                 <ul className={'header__ul'}>

@@ -7,7 +7,7 @@ interface IProps {
 
 export default class ButtonLink extends React.Component<IProps, null> {
     constructor() {
-        super()
+        super();
     }
     public render(): JSX.Element {
 
