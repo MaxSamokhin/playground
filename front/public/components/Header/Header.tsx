@@ -5,6 +5,7 @@ import './Header.scss';
 import Button from '../Button/Button';
 import {connect} from 'react-redux';
 import * as UserAction from '../../actions/User/User.actions';
+import Notification from '../Notification/Notification';
 
 const buttons = [
     {
@@ -44,6 +45,7 @@ class Header extends React.Component<IProps, null> {
     public render(): JSX.Element {
 
         const buttonsBlock = buttons.map(({text, type, pathTo}, index) => {
+
             this.onClickHandle = () => void 0;
             if (this.props.data !== null && text === 'Войти') {
                 this.onClickHandle = this.props.onLogoutUser;

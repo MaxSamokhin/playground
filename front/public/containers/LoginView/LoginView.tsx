@@ -49,14 +49,13 @@ class LoginView extends React.Component<IProps, IState> {
     }
 
     public handleInputField(e) {
-        switch (e.target.type) {
-            case 'email':
-                this.setState({email: e.target.value});
-                break;
-            case 'password':
-                this.setState({password: e.target.value});
-                break;
+        const fieldType = e.target.type;
+        if (fieldType !== 'email' && fieldType !== 'password') {
+            return;
         }
+        this.setState({
+            [fieldType]: e.target.value
+        });
     }
 
     public render(): JSX.Element {
@@ -74,23 +73,26 @@ class LoginView extends React.Component<IProps, IState> {
             return <Redirect to={PROFILE}/>;
         }
 
+        const mess = [{type: 'error', text: 'text error'}, {type: 'info', text: 'text info'}];
+
         return (
             <div className={'signin'}>
                 {
                     this.props.isLoading ?
                         <Loader/> :
                         <div className={'signin'}>
-                            <Notification type={'info'} text={'test text'}/>
                             <form
                                 className={'form'}
                                 onSubmit={this.onFormSubmit}>
                                 {fields}
                                 <Button
-                                    formBtn = {true}
+                                    formBtn={true}
                                     text={'Войти'}
                                     typeBtn={'submit'}
                                 />
                             </form>
+
+                            <Notification messages={mess}/>
                         </div>
                 }
             </div>
@@ -104,7 +106,7 @@ class LoginView extends React.Component<IProps, IState> {
             this.state.email,
             this.state.password,
             function() {
-                this.setState({redirect: true}).bind(this);
+                this.setState({redirect: true});
             }
         );
 

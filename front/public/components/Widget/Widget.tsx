@@ -14,8 +14,8 @@ export default class Widget extends React.Component<IProps, any> {
             <a href={link}
                className={'widget'}
                target={'_blank'}
+               rel={'noreferrer noopener'}
             >
-
                 <img className={'widget__image'}
                      src={srcIcon}
                      alt={'ссылка'}

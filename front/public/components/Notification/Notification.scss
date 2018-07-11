@@ -1,35 +1,20 @@
 .notification {
-  position: fixed;
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
 
-  top: 10px;
-  right: 20px;
-  z-index: 999999;
-  margin: 10px 0 17px;
+  padding: 20px 10px;
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5),
   inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  min-width: 240px;
-  height: 60px;
+  width: 260px;
   visibility: visible;
   opacity: 0.8;
-
-  &__close {
-    display: inline-block;
-    margin-right: 11px;
-    font-weight: bold;
-    float: right;
-    font-size: 36px;
-    line-height: 60px;
-    color: white;
-    cursor: pointer;
-  }
+  margin-bottom: 10px;
+  animation: show 1s, hide .7s 4s;
 
   &__text {
-    display: inline-block;
-    margin-left: 20px;
-    line-height: 60px;
     font-family: 'Open Sans', sans-serif;
     color: white;
     cursor: default;
@@ -42,4 +27,33 @@
   &_error {
     background: crimson;
   }
+
+  &_delete {
+    display: none;
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.notification-wrap {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  z-index: 999999;
 }
