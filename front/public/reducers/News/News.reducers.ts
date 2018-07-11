@@ -2,7 +2,8 @@ import {NEWS_NOT_FOUND, NEWS_SUCCESS, NEWS_REQUEST, NEWS_ERROR_SERVER} from '../
 
 const initialState = {
     isLoadingNews: false,
-    news: null
+    news: null,
+    errorMsg: ''
 };
 
 export default function newsState(state = initialState, action): any {
@@ -16,6 +17,18 @@ export default function newsState(state = initialState, action): any {
             return {
                 ...state,
                 news: action.payload.data,
+                isLoadingNews: false
+            };
+        case NEWS_NOT_FOUND:
+            return {
+                ...state,
+                news: [],
+                isLoadingNews: false
+            };
+        case NEWS_ERROR_SERVER:
+            return {
+                ...state,
+                errorMsg: action.payload.errorMsg,
                 isLoadingNews: false
             };
         default:

@@ -1,57 +1,44 @@
 import * as React from 'react';
-import Widget from '../../components/Widget/Widget';
-import InfoItem from '../../components/InfoItem/InfoItem';
-import './ProfileView.scss';
-import Avatar from '../../components/Avatar/Avatar';
-import {FIELDS_USER_INFO, SRC_ICON} from '../../constants/Profile/Profile.constant';
-import {LOGIN} from '../../service/RoutesMap/RoutesMap';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-const data = {
-    userId: 1,
-    name: 'Имя',
-    city: 'Москва',
-    languages: [
-        'English',
-        'Русский'
-    ],
-    social: [
-        {
-            label: 'vk',
-            link: 'https://vk.com'
-        },
-        {
-            label: 'telegram',
-            link: 'https://ru.wikipedia.org/wiki/Telegram'
-        },
-        {
-            label: 'mail',
-            link: 'https://mail.ru/',
-            icon: './../../media/images/mail.png'
-        },
-        {
-            label: 'youtube',
-            link: 'https://www.youtube.com'
-        },
-        {
-            label: 'yandex',
-            link: 'https://ya.ru'
-        },
-        {
-            label: 'qqqwe',
-            link: 'https://ya.ru'
-        }
-    ]
-};
+import Widget from '../../components/Widget/Widget';
+import InfoItem from '../../components/InfoItem/InfoItem';
+import Loader from '../../components/Loader/Loader';
+import Avatar from '../../components/Avatar/Avatar';
+import Notification from '../../components/Notification/Notification';
+
+import * as ProfileActions from '../../actions/Profile/Profile.actions';
+import './ProfileView.scss';
+
+import {LOGIN} from '../../service/RoutesMap/RoutesMap';
+import {FIELDS_USER_INFO, SRC_ICON} from '../../constants/Profile/Profile.constant';
 
 interface IProps {
-    dataUser: boolean;
+    dataUser: {
+        id: number
+    };
+    errorMsg: string;
+    infoUser: {
+        city: string,
+        languages: Array<string>,
+        name: string,
+        social: Array<{
+            label: string,
+            link: string
+        }>
+    };
+    getInfoUser: (id: number) => {};
+    isLoading: boolean;
 }
 
 class Profile extends React.Component<IProps, null> {
-    constructor() {
-        super();
+    public componentDidMount() {
+        if (this.props.dataUser === null) {
+            return;
+        }
+
+        this.props.getInfoUser(this.props.dataUser.id);
     }
 
     public render(): JSX.Element {
@@ -60,26 +47,46 @@ class Profile extends React.Component<IProps, null> {
             return <Redirect to={LOGIN}/>;
         }
 
-        const userInfo = Object.entries(data).map(([key, value], index) => {
-            if (key === 'social' || key === 'userId') {
-                return;
-            }
+        if (this.props.isLoading) {
+            return (
+                <div className={'profile'}>
+                    <Loader/>
+                </div>);
+        }
+        const data = this.props.infoUser;
 
-            return <InfoItem
-                label={FIELDS_USER_INFO[key]}
-                value={Array.isArray(value) ? value.join(' ') : value.toString()}
+        const userInfo = Object.entries(data)
+            .map(([key, value], index) => {
+                const badKey = new Set(['social', 'userId', 'status']);
+                if (badKey.has(key)) {
+                    return;
+                }
+
+                return <InfoItem
+                    label={FIELDS_USER_INFO[key]}
+                    value={Array.isArray(value) ?
+                        value.join(' ') :
+                        value.toString()}
+                    key={index}
+                />;
+            });
+
+        const widgets = data.social
+            .map(({label, link}, index) => <Widget
+                link={link}
                 key={index}
-            />;
-        });
-
-        const widgets = data.social.map(({label, link}, index) => <Widget
-            link={link}
-            key={index}
-            srcIcon={SRC_ICON[label] || SRC_ICON.default}
-        />);
+                srcIcon={SRC_ICON[label] || SRC_ICON.default}
+            />);
 
         return (
             <div className={'profile'}>
+                <Notification
+                    messages={[
+                        {
+                            text: this.props.errorMsg,
+                            type: 'error'
+                        }
+                    ]}/>
 
                 <div className={'profile__data'}>
                     <Avatar alt='аватaр'/>
@@ -99,8 +106,15 @@ class Profile extends React.Component<IProps, null> {
 
 function mapStateToProps(state) {
     return {
-        dataUser: state.userState.data
+        infoUser: state.profileState.infoUser,
+        isLoading: state.profileState.isLoadingProfile,
+        errorMsg: state.profileState.errorMsgProfile,
+        dataUser: state.userState.dataUser
     };
 }
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = (dispatch) => ({
+    getInfoUser: (id) => dispatch(ProfileActions.getProfile(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -1,4 +1,5 @@
 export const USER_DATA_OK = {
+    status: 'ok',
     userId: 1,
     name: 'Имя',
     city: 'Москва',

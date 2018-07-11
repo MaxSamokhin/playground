@@ -2,8 +2,8 @@ import {USER_LOG_OUT, USER_NOT_FOUND, USER_REQUEST, USER_SUCCESS, USER_ERROR_SER
 
 const initialState = {
     isLoadingUser: false,
-    data: null,
-    errorMsg: ''
+    dataUser: null,
+    errorMsgUser: ''
 };
 
 export default function userState(state = initialState, action): any {
@@ -16,27 +16,27 @@ export default function userState(state = initialState, action): any {
         case USER_SUCCESS:
             return {
                 ...state,
-                data: action.payload.data,
+                dataUser: action.payload.data,
                 isLoadingUser: false
             };
         case USER_NOT_FOUND:
             return {
                 ...state,
                 isLoadingUser: false,
-                errorMsg: action.payload.message
+                errorMsgUser: action.payload.message
             };
         case USER_ERROR_SERVER:
             return {
                 ...state,
                 isLoadingUser: false,
-                errorMsg: action.payload.errorMsg
+                errorMsgUser: action.payload.errorMsg
             };
         case USER_LOG_OUT:
             return {
                 ...state,
                 isLoadingUser: false,
-                data: null,
-                errorMsg: ''
+                dataUser: null,
+                errorMsgUser: ''
             };
 
         default:

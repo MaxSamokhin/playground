@@ -75,7 +75,7 @@ class Header extends React.Component<IProps, null> {
 
 function mapStateToProps(state) {
     return {
-        data: state.userState.data
+        data: state.userState.dataUser
     };
 }
 

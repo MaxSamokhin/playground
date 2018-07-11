@@ -3,10 +3,16 @@ import NewsCount from './../../components/NewsCount/NewsCount';
 import News from './../../components/News/News';
 import * as NewsActions from '../../actions/News/News.actions';
 import {connect} from 'react-redux';
+import Notification from '../../components/Notification/Notification';
 
 interface IProps {
     getNews: () => {};
-    news: any;
+    news: Array<{
+        id: number,
+        title: string,
+        text: string
+    }>;
+    error: string;
 }
 
 class NewsView extends React.Component<IProps, null> {
@@ -19,6 +25,13 @@ class NewsView extends React.Component<IProps, null> {
         const news = this.props.news || [];
         return (
             <div className='news'>
+                <Notification
+                    messages={[
+                        {
+                            text: this.props.error,
+                            type: 'error'
+                        }
+                    ]}/>
                 <News news={news}/>
                 <NewsCount count={news.length}/>
             </div>
@@ -28,7 +41,8 @@ class NewsView extends React.Component<IProps, null> {
 
 function mapStateToProps(state) {
     return {
-        news: state.newsState.news
+        news: state.newsState.news,
+        error: state.newsState.errorMsg
     };
 }
 

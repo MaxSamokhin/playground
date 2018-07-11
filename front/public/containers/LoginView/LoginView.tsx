@@ -2,13 +2,14 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-import './LoginView.scss';
 import Button from './../../components/Button/Button';
 import FormItem from './../../components/Form/FormItem/FormItem';
-import * as UserAction from '../../actions/User/User.actions';
 import Loader from '../../components/Loader/Loader';
-import {PROFILE} from '../../service/RoutesMap/RoutesMap';
 import Notification from '../../components/Notification/Notification';
+
+import * as UserAction from '../../actions/User/User.actions';
+import {PROFILE} from '../../service/RoutesMap/RoutesMap';
+import './LoginView.scss';
 
 const fieldsForm = [
     {
@@ -24,9 +25,11 @@ const fieldsForm = [
 ];
 
 interface IProps {
-    getUser: any;
-    isLoading: any;
-    data: any;
+    getUser: (email: string, password: string, any) => {};
+    isLoading: boolean;
+    data: {
+        id: number
+    };
     errorMsg: string;
 }
 
@@ -60,9 +63,6 @@ class LoginView extends React.Component<IProps, IState> {
     }
 
     public render(): JSX.Element {
-
-        console.log(this.props.errorMsg);
-
         if (this.state.redirect || this.props.data !== null) {
             return <Redirect to={PROFILE}/>;
         }
@@ -122,8 +122,8 @@ class LoginView extends React.Component<IProps, IState> {
 function mapStateToProps(state) {
     return {
         isLoading: state.userState.isLoadingUser,
-        data: state.userState.data,
-        errorMsg: state.userState.errorMsg
+        data: state.userState.dataUser,
+        errorMsg: state.userState.errorMsgUser
     };
 }
 

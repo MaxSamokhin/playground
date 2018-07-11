@@ -3,7 +3,11 @@ import './News.scss';
 import NewsArticle from './NewsArticle/NewsArticle';
 
 interface IProps {
-    news: Array<{ id: number, title: string, text: string }>;
+    news: Array<{
+        id: number,
+        title: string,
+        text: string
+    }>;
 }
 
 export default class News extends React.Component<IProps, void> {
