@@ -1,7 +1,7 @@
 import {NEWS_NOT_FOUND, NEWS_SUCCESS, NEWS_REQUEST, NEWS_ERROR_SERVER} from '../../constants/News/News.constants';
 
 const initialState = {
-    isLoading: false,
+    isLoadingNews: false,
     news: null
 };
 
@@ -10,13 +10,13 @@ export default function newsState(state = initialState, action): any {
         case NEWS_REQUEST:
             return {
                 ...state,
-                isLoading: true
+                isLoadingNews: true
             };
         case NEWS_SUCCESS:
             return {
                 ...state,
                 news: action.payload.data,
-                isLoading: false
+                isLoadingNews: false
             };
         default:
             return state;

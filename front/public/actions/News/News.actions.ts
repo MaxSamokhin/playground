@@ -6,7 +6,7 @@ export function getNews(): any {
     return (dispatch) => {
         dispatch({
             type: NEWS_REQUEST,
-            payload: {isLoading: true}
+            payload: {isLoadingUser: true}
         });
         Transport.get(`api/v1/news`)
             .then((res) => {

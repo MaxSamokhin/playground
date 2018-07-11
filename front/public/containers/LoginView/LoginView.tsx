@@ -27,6 +27,7 @@ interface IProps {
     getUser: any;
     isLoading: any;
     data: any;
+    errorMsg: string;
 }
 
 interface IState {
@@ -60,6 +61,12 @@ class LoginView extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
 
+        console.log(this.props.errorMsg);
+
+        if (this.state.redirect || this.props.data !== null) {
+            return <Redirect to={PROFILE}/>;
+        }
+
         const fields = fieldsForm.map(
             ({type, label, placeholder}, index) => <FormItem
                 type={type}
@@ -68,12 +75,6 @@ class LoginView extends React.Component<IProps, IState> {
                 key={index}
                 onChangeInputForm={this.handleInputField}
             />);
-
-        if (this.state.redirect || this.props.data !== null) {
-            return <Redirect to={PROFILE}/>;
-        }
-
-        const mess = [{type: 'error', text: 'text error'}, {type: 'info', text: 'text info'}];
 
         return (
             <div className={'signin'}>
@@ -91,8 +92,13 @@ class LoginView extends React.Component<IProps, IState> {
                                     typeBtn={'submit'}
                                 />
                             </form>
-
-                            <Notification messages={mess}/>
+                            <Notification
+                                messages={[
+                                    {
+                                        text: this.props.errorMsg,
+                                        type: 'error'
+                                    }
+                                ]}/>
                         </div>
                 }
             </div>
@@ -115,8 +121,9 @@ class LoginView extends React.Component<IProps, IState> {
 
 function mapStateToProps(state) {
     return {
-        isLoading: state.userState.isLoading,
-        data: state.userState.data
+        isLoading: state.userState.isLoadingUser,
+        data: state.userState.data,
+        errorMsg: state.userState.errorMsg
     };
 }
 

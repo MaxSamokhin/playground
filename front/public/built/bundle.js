@@ -29652,7 +29652,7 @@ function getNews() {
     return (dispatch) => {
         dispatch({
             type: News_constants_1.NEWS_REQUEST,
-            payload: { isLoading: true }
+            payload: { isLoadingUser: true }
         });
         Transport_1.default.get(`api/v1/news`)
             .then((res) => {
@@ -29955,18 +29955,23 @@ class LoginView extends React.Component {
         });
     }
     render() {
-        const fields = fieldsForm.map(({ type, label, placeholder }, index) => React.createElement(FormItem_1.default, { type: type, label: label, placeholder: placeholder, key: index, onChangeInputForm: this.handleInputField }));
+        console.log(this.props.errorMsg);
         if (this.state.redirect || this.props.data !== null) {
             return React.createElement(react_router_dom_1.Redirect, { to: RoutesMap_1.PROFILE });
         }
-        const mess = [{ type: 'error', text: 'text error' }, { type: 'info', text: 'text info' }];
+        const fields = fieldsForm.map(({ type, label, placeholder }, index) => React.createElement(FormItem_1.default, { type: type, label: label, placeholder: placeholder, key: index, onChangeInputForm: this.handleInputField }));
         return (React.createElement("div", { className: 'signin' }, this.props.isLoading ?
             React.createElement(Loader_1.default, null) :
             React.createElement("div", { className: 'signin' },
                 React.createElement("form", { className: 'form', onSubmit: this.onFormSubmit },
                     fields,
                     React.createElement(Button_1.default, { formBtn: true, text: 'Войти', typeBtn: 'submit' })),
-                React.createElement(Notification_1.default, { messages: mess }))));
+                React.createElement(Notification_1.default, { messages: [
+                        {
+                            text: this.props.errorMsg,
+                            type: 'error'
+                        }
+                    ] }))));
     }
     onFormSubmit(e) {
         e.preventDefault();
@@ -29977,8 +29982,9 @@ class LoginView extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        isLoading: state.userState.isLoading,
-        data: state.userState.data
+        isLoading: state.userState.isLoadingUser,
+        data: state.userState.data,
+        errorMsg: state.userState.errorMsg
     };
 }
 const mapDispatchToProps = (dispatch) => ({
@@ -30080,12 +30086,15 @@ __webpack_require__(309);
 class Notification extends React.Component {
     render() {
         const notifications = this.props.messages.map((notify, index) => {
+            if (notify.text === '') {
+                return;
+            }
             const classNotify = classnames_1.default({
                 notification: true,
                 notification_info: notify.type === 'info',
                 notification_error: notify.type === 'error'
             });
-            return (React.createElement("div", { className: classNotify, ref: 'notify', key: index, onAnimationEnd: this.onAnimationEnd },
+            return (React.createElement("div", { className: classNotify, key: index, onAnimationEnd: this.onAnimationEnd },
                 React.createElement("div", { className: 'notification__text' }, notify.text)));
         });
         return (React.createElement("div", { className: 'notification-wrap' }, notifications));
@@ -30260,19 +30269,22 @@ exports.default = reducer;
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_constants_1 = __webpack_require__(125);
 const initialState = {
-    isLoading: false,
-    data: null
+    isLoadingUser: false,
+    data: null,
+    errorMsg: ''
 };
 function userState(state = initialState, action) {
     switch (action.type) {
         case User_constants_1.USER_REQUEST:
-            return Object.assign({}, state, { isLoading: true });
+            return Object.assign({}, state, { isLoadingUser: action.payload.isLoading });
         case User_constants_1.USER_SUCCESS:
-            return Object.assign({}, state, { data: action.payload, isLoading: false });
+            return Object.assign({}, state, { data: action.payload.data, isLoadingUser: false });
         case User_constants_1.USER_NOT_FOUND:
-            return Object.assign({}, state, { isLoading: false });
+            return Object.assign({}, state, { isLoadingUser: false, errorMsg: action.payload.message });
+        case User_constants_1.USER_ERROR_SERVER:
+            return Object.assign({}, state, { isLoadingUser: false, errorMsg: action.payload.errorMsg });
         case User_constants_1.USER_LOG_OUT:
-            return Object.assign({}, state, { data: null });
+            return Object.assign({}, state, { isLoadingUser: false, data: null, errorMsg: '' });
         default:
             return state;
     }
@@ -30289,15 +30301,15 @@ exports.default = userState;
 Object.defineProperty(exports, "__esModule", { value: true });
 const News_constants_1 = __webpack_require__(119);
 const initialState = {
-    isLoading: false,
+    isLoadingNews: false,
     news: null
 };
 function newsState(state = initialState, action) {
     switch (action.type) {
         case News_constants_1.NEWS_REQUEST:
-            return Object.assign({}, state, { isLoading: true });
+            return Object.assign({}, state, { isLoadingNews: true });
         case News_constants_1.NEWS_SUCCESS:
-            return Object.assign({}, state, { news: action.payload.data, isLoading: false });
+            return Object.assign({}, state, { news: action.payload.data, isLoadingNews: false });
         default:
             return state;
     }

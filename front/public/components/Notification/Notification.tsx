@@ -15,6 +15,10 @@ export default class Notification extends React.Component<IProps, null> {
 
         const notifications = this.props.messages.map((notify, index) => {
 
+            if (notify.text === '') {
+                return;
+            }
+
             const classNotify = classnames({
                 notification: true,
                 notification_info: notify.type === 'info',
@@ -23,7 +27,6 @@ export default class Notification extends React.Component<IProps, null> {
 
             return (
                 <div className={classNotify}
-                     ref={'notify'}
                      key={index}
                      onAnimationEnd={this.onAnimationEnd}
                 >

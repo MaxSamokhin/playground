@@ -1,8 +1,9 @@
-import {USER_LOG_OUT, USER_NOT_FOUND, USER_REQUEST, USER_SUCCESS} from '../../constants/User/User.constants';
+import {USER_LOG_OUT, USER_NOT_FOUND, USER_REQUEST, USER_SUCCESS, USER_ERROR_SERVER} from '../../constants/User/User.constants';
 
 const initialState = {
-    isLoading: false,
-    data: null
+    isLoadingUser: false,
+    data: null,
+    errorMsg: ''
 };
 
 export default function userState(state = initialState, action): any {
@@ -10,23 +11,32 @@ export default function userState(state = initialState, action): any {
         case USER_REQUEST:
             return {
                 ...state,
-                isLoading: true
+                isLoadingUser: action.payload.isLoading
             };
         case USER_SUCCESS:
             return {
                 ...state,
-                data: action.payload,
-                isLoading: false
+                data: action.payload.data,
+                isLoadingUser: false
             };
         case USER_NOT_FOUND:
             return {
                 ...state,
-                isLoading: false
+                isLoadingUser: false,
+                errorMsg: action.payload.message
+            };
+        case USER_ERROR_SERVER:
+            return {
+                ...state,
+                isLoadingUser: false,
+                errorMsg: action.payload.errorMsg
             };
         case USER_LOG_OUT:
             return {
                 ...state,
-                data: null
+                isLoadingUser: false,
+                data: null,
+                errorMsg: ''
             };
 
         default:
