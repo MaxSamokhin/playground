@@ -10,9 +10,8 @@ import Notification from '../../components/Notification/Notification';
 
 import * as ProfileActions from '../../actions/Profile/Profile.actions';
 import './ProfileView.scss';
-
-import {LOGIN} from '../../service/RoutesMap/RoutesMap';
 import {FIELDS_USER_INFO, SRC_ICON} from '../../constants/Profile/Profile.constant';
+import {LOGIN} from '../../service/RoutesMap/RoutesMap';
 
 interface IProps {
     dataUser: {
@@ -39,6 +38,7 @@ class Profile extends React.Component<IProps, null> {
         }
 
         this.props.getInfoUser(this.props.dataUser.id);
+        this.props.getInfoUser(1);
     }
 
     public render(): JSX.Element {
@@ -71,12 +71,26 @@ class Profile extends React.Component<IProps, null> {
                 />;
             });
 
+        const dataMail: { label: string, link: string } = {label: '', link: ''};
+
         const widgets = data.social
-            .map(({label, link}, index) => <Widget
-                link={link}
-                key={index}
-                srcIcon={SRC_ICON[label] || SRC_ICON.default}
-            />);
+            .map(({label, link}, index) => {
+                if (label === 'mail') {
+                    dataMail.label = label;
+                    dataMail.link = link;
+                    return;
+                }
+                return <Widget
+                    link={link}
+                    key={index}
+                    srcIcon={SRC_ICON[label] || SRC_ICON.default}
+                />;
+            });
+
+        widgets.unshift(<Widget
+            link={dataMail.link}
+            key={widgets.length}
+            srcIcon={SRC_ICON[dataMail.label] || SRC_ICON.default}/>);
 
         return (
             <div className={'profile'}>
