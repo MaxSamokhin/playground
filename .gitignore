@@ -68,5 +68,5 @@ tags
 package-lock.json
 dist
 .idea
-public/built
 .js.map
+front/public/built
