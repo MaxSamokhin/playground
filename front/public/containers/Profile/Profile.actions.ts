@@ -1,30 +1,31 @@
-import {NEWS_REQUEST, NEWS_SUCCESS, NEWS_NOT_FOUND, NEWS_ERROR_SERVER} from '../../constants/News/News.constants';
+import {PROFILE_ERROR_SERVER, PROFILE_NOT_FOUND, PROFILE_REQUEST, PROFILE_SUCCESS} from './Profile.constant';
 import Transport from '../../service/Transport/Transport';
 import checkResponse from '../../service/CheckResponse/CheckResponse';
+import {getRussianTranslation} from '../../service/Dictionary/dictionary';
 
-export function getNews(): any {
+export function getProfile(id): any {
     return (dispatch) => {
         dispatch({
-            type: NEWS_REQUEST,
+            type: PROFILE_REQUEST,
             payload: {isLoadingUser: true}
         });
-        Transport.get(`api/v1/news`)
+        Transport.get(`api/v1/user-info/${id}`)
             .then((res) => {
                 if (checkResponse(res)) {
                     dispatch({
-                        type: NEWS_SUCCESS,
-                        payload: res
+                        type: PROFILE_SUCCESS,
+                        payload: {data: res}
                     });
                 } else {
                     dispatch({
-                        type: NEWS_NOT_FOUND,
-                        payload: res
+                        type: PROFILE_NOT_FOUND,
+                        payload: getRussianTranslation(res.message)
                     });
                 }
             })
             .catch(() => {
                 dispatch({
-                    type: NEWS_ERROR_SERVER,
+                    type: PROFILE_ERROR_SERVER,
                     payload: {
                         errorMsg: '500 Error'
                     }

@@ -1,34 +1,10 @@
 import * as React from 'react';
-import * as RoutesMap from '../../service/RoutesMap/RoutesMap';
 import {Link} from 'react-router-dom';
 import './Header.scss';
 import Button from '../Button/Button';
 import {connect} from 'react-redux';
-import * as UserAction from '../../actions/User/User.actions';
-import Notification from '../Notification/Notification';
-
-const buttons = [
-    {
-        text: 'To do List',
-        type: 'button',
-        pathTo: RoutesMap.HOME
-    },
-    {
-        text: 'Новости',
-        type: 'button',
-        pathTo: RoutesMap.NEWS
-    },
-    {
-        text: 'Профиль',
-        type: 'button',
-        pathTo: RoutesMap.PROFILE
-    },
-    {
-        text: 'Войти',
-        type: 'button',
-        pathTo: RoutesMap.LOGIN
-    }
-];
+import * as UserAction from '../../containers/Login/Login.actions';
+import {buttons} from './Header.config';
 
 interface IProps {
     data: any;
@@ -36,7 +12,7 @@ interface IProps {
 }
 
 class Header extends React.Component<IProps, null> {
-    private onClickHandle: any;
+    private _onClickHandle: any;
 
     constructor() {
         super();
@@ -44,24 +20,7 @@ class Header extends React.Component<IProps, null> {
 
     public render(): JSX.Element {
 
-        const buttonsBlock = buttons.map(({text, type, pathTo}, index) => {
-
-            this.onClickHandle = () => void 0;
-            if (this.props.data !== null && text === 'Войти') {
-                this.onClickHandle = this.props.onLogoutUser;
-                text = 'Выйти';
-            }
-
-            return <li className={'header__li'}
-                       key={index}>
-                <Button
-                    text={text}
-                    typeBtn={type}
-                    pathTo={pathTo}
-                    onClickButton={this.onClickHandle}
-                />
-            </li>;
-        });
+        const buttonsBlock = this._getButtons(buttons);
 
         return (
             <div className={'header'}>
@@ -71,11 +30,31 @@ class Header extends React.Component<IProps, null> {
             </div>
         );
     }
+
+    private _getButtons(btns) {
+        return btns.map(({text, type, pathTo}, index) => {
+            this._onClickHandle = () => void 0;
+            if (this.props.data !== null && text === 'Войти') {
+                this._onClickHandle = this.props.onLogoutUser;
+                text = 'Выйти';
+            }
+
+            return <li className={'header__li'}
+                       key={index}>
+                <Button
+                    text={text}
+                    typeBtn={type}
+                    pathTo={pathTo}
+                    onClickButton={this._onClickHandle}
+                />
+            </li>;
+        });
+    }
 }
 
 function mapStateToProps(state) {
     return {
-        data: state.userState.dataUser
+        data: state.loginState.dataUser
     };
 }
 

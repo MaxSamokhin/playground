@@ -11,9 +11,20 @@ interface IProps {
 }
 
 export default class Notification extends React.Component<IProps, null> {
+
     public render(): JSX.Element {
 
-        const notifications = this.props.messages.map((notify, index) => {
+        const notifications = this._getNotifications(this.props.messages);
+
+        return (
+            <div className='notification-wrap'>
+                {notifications}
+            </div>
+        );
+    }
+
+    private _getNotifications(messages) {
+        return messages.map((notify, index) => {
 
             if (notify.text === '') {
                 return;
@@ -28,24 +39,18 @@ export default class Notification extends React.Component<IProps, null> {
             return (
                 <div className={classNotify}
                      key={index}
-                     onAnimationEnd={this.onAnimationEnd}
+                     onAnimationEnd={this._onAnimationEnd}
                 >
                     <div className={'notification__text'}>
                         {notify.text}
                     </div>
                 </div>);
         });
-
-        return (
-            <div className='notification-wrap'>
-                {notifications}
-            </div>
-        );
     }
 
-    private onAnimationEnd(e) {
+    private _onAnimationEnd(e) {
         if (e.animationName === 'hide') {
-            e.target.classList.add('notification_delete');
+            e.currentTarget.classList.add('notification_delete');
         }
     }
 }

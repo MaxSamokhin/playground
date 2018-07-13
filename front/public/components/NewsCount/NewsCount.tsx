@@ -6,11 +6,8 @@ interface IProps {
 }
 
 export default class NewsCount extends React.Component<IProps, void> {
-
     public render(): JSX.Element {
-
         const count = this.props.count;
-
         return (
             <div className={'news__count'}>
                 {
@@ -18,7 +15,6 @@ export default class NewsCount extends React.Component<IProps, void> {
                         <div>Всего новостей: {count} </div> :
                         <div>Нет новостей</div>
                 }
-
             </div>
         );
     }

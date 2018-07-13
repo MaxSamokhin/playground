@@ -1,43 +1,35 @@
-import {USER_ERROR_SERVER, USER_NOT_FOUND, USER_REQUEST, USER_SUCCESS} from '../../constants/User/User.constants';
+import {NEWS_REQUEST, NEWS_SUCCESS, NEWS_NOT_FOUND, NEWS_ERROR_SERVER} from './News.constants';
 import Transport from '../../service/Transport/Transport';
 import checkResponse from '../../service/CheckResponse/CheckResponse';
+import {getRussianTranslation} from '../../service/Dictionary/dictionary';
 
-export function getUser(email, password, cb): any {
+export function getNews(): any {
     return (dispatch) => {
         dispatch({
-            type: USER_REQUEST,
-            payload: {isLoading: true}
+            type: NEWS_REQUEST,
+            payload: {isLoadingUser: true}
         });
-        Transport.post(`api/v1/validate`, {email, password})
+        Transport.get(`api/v1/news`)
             .then((res) => {
                 if (checkResponse(res)) {
                     dispatch({
-                        type: USER_SUCCESS,
+                        type: NEWS_SUCCESS,
                         payload: res
                     });
-                    cb();
                 } else {
                     dispatch({
-                        type: USER_NOT_FOUND,
-                        payload: res
+                        type: NEWS_NOT_FOUND,
+                        payload: getRussianTranslation(res.message)
                     });
                 }
             })
             .catch(() => {
                 dispatch({
-                    type: USER_ERROR_SERVER,
+                    type: NEWS_ERROR_SERVER,
                     payload: {
                         errorMsg: '500 Error'
                     }
                 });
             });
-    };
-}
-
-export function logoutUser(): any {
-    return (dispatch) => {
-        dispatch({
-            type: 'USER_LOG_OUT'
-        });
     };
 }

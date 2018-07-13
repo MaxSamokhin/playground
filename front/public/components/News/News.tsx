@@ -13,21 +13,22 @@ interface IProps {
 export default class News extends React.Component<IProps, void> {
 
     public render(): JSX.Element {
-
         const news = this.props.news;
+        const newsArticle = this._getNewsArticle(news);
+        return (
+            <div className='news__article'>
+                {newsArticle}
+            </div>
+        );
+    }
 
-        const newsContent = news.map(
+    private _getNewsArticle(news) {
+        return news.map(
             (elem) => <NewsArticle
                 title={elem.title}
                 content={elem.text}
                 key={elem.id}
             />
-        );
-
-        return (
-            <div className='news__article'>
-                {newsContent}
-            </div>
         );
     }
 }

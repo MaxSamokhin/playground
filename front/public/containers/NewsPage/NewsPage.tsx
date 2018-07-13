@@ -1,7 +1,7 @@
 import * as React from 'react';
 import NewsCount from './../../components/NewsCount/NewsCount';
 import News from './../../components/News/News';
-import * as NewsActions from '../../actions/News/News.actions';
+import * as NewsActions from './News.actions';
 import {connect} from 'react-redux';
 import Notification from '../../components/Notification/Notification';
 
@@ -15,8 +15,7 @@ interface IProps {
     error: string;
 }
 
-class NewsView extends React.Component<IProps, null> {
-
+class NewsPage extends React.Component<IProps, null> {
     public componentDidMount() {
         this.props.getNews();
     }
@@ -26,12 +25,10 @@ class NewsView extends React.Component<IProps, null> {
         return (
             <div className='news'>
                 <Notification
-                    messages={[
-                        {
-                            text: this.props.error,
-                            type: 'error'
-                        }
-                    ]}/>
+                    messages={[{
+                        text: this.props.error,
+                        type: 'error'
+                    }]}/>
                 <News news={news}/>
                 <NewsCount count={news.length}/>
             </div>
@@ -50,4 +47,4 @@ const mapDispatchToProps = (dispatch) => ({
     getNews: () => dispatch(NewsActions.getNews())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsView);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsPage);

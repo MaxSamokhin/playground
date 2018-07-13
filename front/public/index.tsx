@@ -7,10 +7,10 @@ import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 
 import {routes} from './routes';
-import Store from './store/Store';
+import store from './store/Store';
 
 const App = () => (
-    <Provider store={Store}>
+    <Provider store={store}>
         <BrowserRouter children={routes}/>
     </Provider>
 );

@@ -1,4 +1,4 @@
-import {PROFILE_ERROR_SERVER, PROFILE_NOT_FOUND, PROFILE_REQUEST, PROFILE_SUCCESS} from '../../constants/Profile/Profile.constant';
+import {PROFILE_ERROR_SERVER, PROFILE_NOT_FOUND, PROFILE_REQUEST, PROFILE_SUCCESS} from './Profile.constant';
 
 const initialState = {
     infoUser: null,

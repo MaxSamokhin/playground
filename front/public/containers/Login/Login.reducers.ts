@@ -1,4 +1,4 @@
-import {USER_LOG_OUT, USER_NOT_FOUND, USER_REQUEST, USER_SUCCESS, USER_ERROR_SERVER} from '../../constants/User/User.constants';
+import {USER_LOG_OUT, USER_NOT_FOUND, USER_REQUEST, USER_SUCCESS, USER_ERROR_SERVER} from './Login.constants';
 
 const initialState = {
     isLoadingUser: false,
@@ -6,7 +6,7 @@ const initialState = {
     errorMsgUser: ''
 };
 
-export default function userState(state = initialState, action): any {
+export default function loginState(state = initialState, action): any {
     switch (action.type) {
         case USER_REQUEST:
             return {
@@ -23,7 +23,7 @@ export default function userState(state = initialState, action): any {
             return {
                 ...state,
                 isLoadingUser: false,
-                errorMsgUser: action.payload.message
+                errorMsgUser: action.payload
             };
         case USER_ERROR_SERVER:
             return {

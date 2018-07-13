@@ -1,4 +1,4 @@
-import {NEWS_NOT_FOUND, NEWS_SUCCESS, NEWS_REQUEST, NEWS_ERROR_SERVER} from '../../constants/News/News.constants';
+import {NEWS_NOT_FOUND, NEWS_SUCCESS, NEWS_REQUEST, NEWS_ERROR_SERVER} from './News.constants';
 
 const initialState = {
     isLoadingNews: false,

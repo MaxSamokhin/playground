@@ -8,10 +8,9 @@ import Loader from '../../components/Loader/Loader';
 import Avatar from '../../components/Avatar/Avatar';
 import Notification from '../../components/Notification/Notification';
 
-import * as ProfileActions from '../../actions/Profile/Profile.actions';
-import './ProfileView.scss';
-import {FIELDS_USER_INFO, SRC_ICON} from '../../constants/Profile/Profile.constant';
-import {LOGIN} from '../../service/RoutesMap/RoutesMap';
+import * as ProfileActions from './Profile.actions';
+import './Profile.scss';
+import {FIELDS_USER_INFO, SRC_ICON} from './Profile.constant';
 
 interface IProps {
     dataUser: {
@@ -33,74 +32,27 @@ interface IProps {
 
 class Profile extends React.Component<IProps, null> {
     public componentDidMount() {
-        if (this.props.dataUser === null) {
-            return;
-        }
-
         this.props.getInfoUser(this.props.dataUser.id);
-        this.props.getInfoUser(1);
     }
 
     public render(): JSX.Element {
-
-        if (this.props.dataUser === null) {
-            return <Redirect to={LOGIN}/>;
-        }
-
         if (this.props.isLoading) {
-            return (
-                <div className={'profile'}>
-                    <Loader/>
-                </div>);
+            return (<div className={'profile'}>
+                <Loader/>
+            </div>);
         }
+
         const data = this.props.infoUser;
-
-        const userInfo = Object.entries(data)
-            .map(([key, value], index) => {
-                const badKey = new Set(['social', 'userId', 'status']);
-                if (badKey.has(key)) {
-                    return;
-                }
-
-                return <InfoItem
-                    label={FIELDS_USER_INFO[key]}
-                    value={Array.isArray(value) ?
-                        value.join(' ') :
-                        value.toString()}
-                    key={index}
-                />;
-            });
-
-        const dataMail: { label: string, link: string } = {label: '', link: ''};
-
-        const widgets = data.social
-            .map(({label, link}, index) => {
-                if (label === 'mail') {
-                    dataMail.label = label;
-                    dataMail.link = link;
-                    return;
-                }
-                return <Widget
-                    link={link}
-                    key={index}
-                    srcIcon={SRC_ICON[label] || SRC_ICON.default}
-                />;
-            });
-
-        widgets.unshift(<Widget
-            link={dataMail.link}
-            key={widgets.length}
-            srcIcon={SRC_ICON[dataMail.label] || SRC_ICON.default}/>);
+        const userInfo = this._getUserInfo(data);
+        const widgets = this._getWidgets(data);
 
         return (
             <div className={'profile'}>
                 <Notification
-                    messages={[
-                        {
-                            text: this.props.errorMsg,
-                            type: 'error'
-                        }
-                    ]}/>
+                    messages={[{
+                        text: this.props.errorMsg,
+                        type: 'error'
+                    }]}/>
 
                 <div className={'profile__data'}>
                     <Avatar alt='аватaр'/>
@@ -116,6 +68,48 @@ class Profile extends React.Component<IProps, null> {
             </div>
         );
     }
+
+    private _getWidgets(data) {
+        const dataMail: { label: string, link: string } = {label: '', link: ''};
+
+        const widgets = data.social
+            .map(({label, link}, index) => {
+                if (label === 'mail') {
+                    dataMail.label = label;
+                    dataMail.link = link;
+                    return;
+                }
+
+                return <Widget
+                    link={link}
+                    key={index}
+                    srcIcon={SRC_ICON[label] || SRC_ICON.default}
+                />;
+            });
+
+        return widgets.unshift(<Widget
+            link={dataMail.link}
+            key={widgets.length}
+            srcIcon={SRC_ICON[dataMail.label] || SRC_ICON.default}/>);
+    }
+
+    private _getUserInfo(data) {
+        return Object.entries(data)
+            .map(([key, value], index) => {
+                const badKey = new Set(['social', 'userId', 'status']);
+                if (badKey.has(key)) {
+                    return;
+                }
+
+                return <InfoItem
+                    label={FIELDS_USER_INFO[key]}
+                    value={Array.isArray(value) ?
+                        value.join(' ') :
+                        value.toString()}
+                    key={index}
+                />;
+            });
+    }
 }
 
 function mapStateToProps(state) {
@@ -123,7 +117,7 @@ function mapStateToProps(state) {
         infoUser: state.profileState.infoUser,
         isLoading: state.profileState.isLoadingProfile,
         errorMsg: state.profileState.errorMsgProfile,
-        dataUser: state.userState.dataUser
+        dataUser: state.loginState.dataUser
     };
 }
 

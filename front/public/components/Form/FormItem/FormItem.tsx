@@ -5,7 +5,6 @@ interface IProps {
     label: string;
     type: string;
     placeholder: string;
-    key: number;
     onChangeInputForm: (e: any) => void;
 }
 
