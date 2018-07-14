@@ -6,6 +6,7 @@ const initialState = {
     isLoadingProfile: true
 };
 
+
 export default function profileState(state = initialState, action): any {
     switch (action.type) {
         case PROFILE_REQUEST:

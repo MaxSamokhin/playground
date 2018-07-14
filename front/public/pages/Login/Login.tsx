@@ -4,13 +4,13 @@ import {Redirect} from 'react-router-dom';
 
 import Button from './../../components/Button/Button';
 import FormItem from './../../components/Form/FormItem/FormItem';
-import Loader from '../../components/Loader/Loader';
 import Notification from '../../components/Notification/Notification';
 
 import * as UserAction from './Login.actions';
 import {PROFILE} from '../../constants/RoutesMap/RoutesMap';
 import './Login.scss';
 import {fieldsForm} from './Login.config';
+import WithLoading from '../../components/WithLoading/WithLoading';
 
 interface IProps {
     logIn: ({email, password}, any) => {};
@@ -45,35 +45,39 @@ class Login extends React.Component<IProps, IState> {
         if (this.state.redirect) {
             return <Redirect to={PROFILE}/>;
         }
+
         const fields = this._getFields(fieldsForm);
+        const notificationMsg = this._getNotificationMsg();
 
         return (
             <div className={'signin'}>
-                {
-                    this.props.isLoading ?
-                        <Loader/> :
-                        <div className={'signin'}>
-                            <form
-                                className={'form'}
-                                onSubmit={this._onFormSubmit}>
-                                {fields}
-                                <Button formBtn={true}
-                                        text={'Войти'}
-                                        typeBtn={'submit'}
-                                />
-                            </form>
-                            <Notification messages={[{
-                                text: this.props.errorMsg,
-                                type: 'error'
-                            }]}/>
-                        </div>
-                }
+                <WithLoading
+                    isLoading={this.props.isLoading}
+                    isFlexBlock={true}>
+                    <form
+                        className={'form'}
+                        onSubmit={this._onFormSubmit}>
+                        {fields}
+                        <Button formBtn={true}
+                                text={'Войти'}
+                                typeBtn={'submit'}
+                        />
+                    </form>
+                    <Notification messages={notificationMsg}/>
+                </WithLoading>
             </div>
         );
     }
 
     public changeStateRedirect() {
         this.setState({redirect: true});
+    }
+
+    private _getNotificationMsg() {
+        return [{
+            text: this.props.errorMsg,
+            type: 'error'
+        }];
     }
 
     private _getFields(fields) {
@@ -89,7 +93,6 @@ class Login extends React.Component<IProps, IState> {
 
     private _handleInputField(e) {
         const fieldType = e.currentTarget.type;
-
         if (fieldType !== 'email' && fieldType !== 'password') {
             return;
         }

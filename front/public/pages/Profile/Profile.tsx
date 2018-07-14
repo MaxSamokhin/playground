@@ -44,15 +44,12 @@ class Profile extends React.Component<IProps, null> {
 
         const data = this.props.infoUser;
         const userInfo = this._getUserInfo(data);
-        const widgets = this._getWidgets(data);
+        const widgets = this._getWidgets(data.social);
+        const notificationMsg = this._getNotificationMsg();
 
         return (
             <div className={'profile'}>
-                <Notification
-                    messages={[{
-                        text: this.props.errorMsg,
-                        type: 'error'
-                    }]}/>
+                <Notification messages={notificationMsg}/>
 
                 <div className={'profile__data'}>
                     <Avatar alt='аватaр'/>
@@ -69,34 +66,27 @@ class Profile extends React.Component<IProps, null> {
         );
     }
 
+    private _getNotificationMsg() {
+        return [{
+            text: this.props.errorMsg,
+            type: 'error'
+        }];
+    }
+
     private _getWidgets(data) {
-        const dataMail: { label: string, link: string } = {label: '', link: ''};
-
-        const widgets = data.social
-            .map(({label, link}, index) => {
-                if (label === 'mail') {
-                    dataMail.label = label;
-                    dataMail.link = link;
-                    return;
-                }
-
-                return <Widget
-                    link={link}
-                    key={index}
-                    srcIcon={SRC_ICON[label] || SRC_ICON.default}
-                />;
-            });
-
-        return widgets.unshift(<Widget
-            link={dataMail.link}
-            key={widgets.length}
-            srcIcon={SRC_ICON[dataMail.label] || SRC_ICON.default}/>);
+        return data.map(({label, link}, index) => {
+            return <Widget
+                link={link}
+                key={index}
+                srcIcon={SRC_ICON[label] || SRC_ICON.default}
+            />;
+        });
     }
 
     private _getUserInfo(data) {
+        const badKey = new Set(['social', 'userId', 'status']);
         return Object.entries(data)
             .map(([key, value], index) => {
-                const badKey = new Set(['social', 'userId', 'status']);
                 if (badKey.has(key)) {
                     return;
                 }

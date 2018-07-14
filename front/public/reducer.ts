@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
-import loginState from './containers/Login/Login.reducers';
-import newsState from './containers/NewsPage/News.reducers';
-import profileState from './containers/Profile/Profile.reducers';
+import loginState from './pages/Login/Login.reducers';
+import newsState from './pages/NewsPage/News.reducers';
+import profileState from './pages/Profile/Profile.reducers';
 
 const reducer = combineReducers({
     loginState,

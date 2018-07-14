@@ -1,9 +1,9 @@
-import ProfileView from '../../containers/Profile/Profile';
+import ProfileView from '../../pages/Profile/Profile';
 import * as RoutesMap from '../RoutesMap/RoutesMap';
-import SignInView from '../../containers/Login/Login';
-import NewsView from '../../containers/NewsPage/NewsPage';
-import NotFound from '../../containers/NotFound/NotFound';
-import Home from '../../containers/Home/Home';
+import SignInView from '../../pages/Login/Login';
+import NewsView from '../../pages/NewsPage/NewsPage';
+import NotFound from '../../pages/NotFound/NotFound';
+import Home from '../../pages/Home/Home';
 
 export const route = [
     {

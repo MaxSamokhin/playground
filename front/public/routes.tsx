@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import Base from './containers/Base/Base';
+import Base from './pages/Base/Base';
 import PrivateRouter from './components/PrivateRouter/PrivateRouter';
 import {route} from './constants/RoutesConfig/RoutesConfig';
 

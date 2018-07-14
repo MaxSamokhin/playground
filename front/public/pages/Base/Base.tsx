@@ -14,4 +14,3 @@ export default class Base extends React.Component<any, void> {
         );
     }
 }
-

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import './Header.scss';
 import Button from '../Button/Button';
 import {connect} from 'react-redux';
-import * as UserAction from '../../containers/Login/Login.actions';
+import * as UserAction from '../../pages/Login/Login.actions';
 import {buttons} from './Header.config';
 
 interface IProps {
