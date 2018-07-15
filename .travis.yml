@@ -1,0 +1,12 @@
+sudo: enabled
+dist: trusty
+language: node_js
+node_js:
+  - "9"
+before_script:
+  - npm install
+script:
+  - npm run webpack
+  - npm run tslint
+  - npm run test
+
