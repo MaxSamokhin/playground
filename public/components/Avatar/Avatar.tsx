@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './Avatar.scss';
-import {DEFAULT_IMAGE_AVATAR} from "./Avatar.constant";
+import {DEFAULT_IMAGE_AVATAR} from './Avatar.constant';
 
 interface IProps {
     src?: string;
