@@ -70,3 +70,4 @@ dist
 .idea
 .js.map
 front/public/built
+public/built
