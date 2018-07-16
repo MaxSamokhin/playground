@@ -6,8 +6,8 @@ node_js:
 script:
   - eval "$(ssh-agent -s)"
   - ssh-keyscan -H 138.68.96.188 >> ~/.ssh/known_hosts
-  - chmod 600 $HOME/.ssh/playground_travis_key
-  - ssh-add $HOME/.ssh/playground_travis_key
+  - chmod 600 $HOME/.ssh/deploy
+  - ssh-add $HOME/.ssh/deploy
   - npm install
   - npm run webpack
   - npm run tslint
