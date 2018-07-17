@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/MaxSamokhin/playground.svg?branch=master)](https://travis-ci.org/MaxSamokhin/playground)
 
 
-[**открыть демо**]()
+[**открыть демо**](http://207.154.217.185/)
 
 ## Инструкции по запуску
 
