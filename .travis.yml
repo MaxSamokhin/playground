@@ -2,17 +2,17 @@ sudo: enabled
 dist: trusty
 language: node_js
 node_js:
-  - "9"
+- "9"
 script:
-  - eval "$(ssh-agent -s)"
-  - ssh-keyscan -H 138.68.96.188 >> ~/.ssh/known_hosts
-  - chmod 600 $HOME/.ssh/deploy
-  - ssh-add $HOME/.ssh/deploy
-  - npm install
-  - npm run webpack
-  - npm run tslint
-  - npm run test
-  - scp -r ./public/built root@138.68.96.188:/var/www
+- eval "$(ssh-agent -s)"
+- ssh-keyscan -H 138.68.96.188 >> ~/.ssh/known_hosts
+- chmod 600 $HOME/.ssh/deploy
+- ssh-add $HOME/.ssh/deploy
+- npm install
+- npm run webpack
+- npm run tslint
+- npm run test
+- scp -r ./public/built root@138.68.96.188:/var/www
 before_install:
 - openssl aes-256-cbc -K $encrypted_6bcd37e4cff3_key -iv $encrypted_6bcd37e4cff3_iv
   -in deploy.enc -out ~\/.ssh/deploy -d
