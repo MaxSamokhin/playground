@@ -22,9 +22,9 @@ describe('News actions', () => {
         const expectedAction = {
             type: NEWS_ERROR_SERVER,
             payload: {
-                errorMsg: '500 Error'
+                errorMsg: 'error'
             }
         };
-        expect(newsErrorServer()).toEqual(expectedAction);
+        expect(newsErrorServer(expectedAction.payload.errorMsg)).toEqual(expectedAction);
     });
 });

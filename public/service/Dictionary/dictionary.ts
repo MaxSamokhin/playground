@@ -1,6 +1,7 @@
 const DICTIONARY = {
     user_not_found: 'Пользователь не найден',
-    wrong_email_or_password: 'Имя пользователя или пароль введены не верно'
+    wrong_email_or_password: 'Имя пользователя или пароль введены не верно',
+    error_500: 'Сервер не доступен'
 };
 
 const DEFAULT_MESSAGE = 'Непредвиденная ошибка';

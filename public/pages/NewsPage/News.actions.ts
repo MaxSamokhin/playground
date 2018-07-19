@@ -18,10 +18,10 @@ export const newsNotFound = (error: string) => ({
     payload: error
 });
 
-export const newsErrorServer = () => ({
+export const newsErrorServer = (message: string) => ({
     type: NEWS_ERROR_SERVER,
     payload: {
-        errorMsg: '500 Error'
+        errorMsg: message
     }
 });
 
@@ -35,7 +35,7 @@ export function getNews(): any {
                     dispatch(newsNotFound(getRussianTranslation(res.message)));
             })
             .catch(() => {
-                dispatch(newsErrorServer());
+                dispatch(newsErrorServer(getRussianTranslation('error_500')));
             });
     };
 }

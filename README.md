@@ -15,14 +15,14 @@
     $ npm run server
 ```
 
-## Тесты
-
-```
-   $ npm run test
-```
-
 Приложение станет доступно на [127.0.0.1:7001](http://127.0.0.1:7001)
 
 
 - Email: test@test.test 
 - Password: test
+
+## Тесты
+
+```
+   $ npm run test
+```

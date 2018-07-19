@@ -19,10 +19,10 @@ export const profileNotFound = (message: string) => ({
     payload: getRussianTranslation(message)
 });
 
-export const profileErrorServer = () => ({
+export const profileErrorServer = (message:string) => ({
     type: PROFILE_ERROR_SERVER,
     payload: {
-        errorMsg: '500 Error'
+        errorMsg: message
     }
 });
 
@@ -38,6 +38,6 @@ export function getProfile(id): any {
                     dispatch(profileNotFound(res.message));
                 }
             })
-            .catch(() => dispatch(profileErrorServer()));
+            .catch(() => dispatch(profileErrorServer(getRussianTranslation('error_500'))));
     };
 }

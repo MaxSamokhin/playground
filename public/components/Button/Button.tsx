@@ -7,7 +7,7 @@ interface IProps {
     typeBtn: string;
     text: string;
     pathTo?: string;
-    onClickButton?: () => {};
+    onClickButton?: () => void;
     formBtn?: boolean;
 }
 

@@ -18,10 +18,10 @@ export const userNotFound = (message: string) => ({
     payload: message
 });
 
-export const userServerError = () => ({
+export const userServerError = (message: string) => ({
     type: USER_ERROR_SERVER,
     payload: {
-        errorMsg: '500 Error'
+        errorMsg: message
     }
 });
 
@@ -42,7 +42,7 @@ export function logIn({email, password}, cb): any {
                 }
             })
             .catch(() => {
-                dispatch(userServerError());
+                dispatch(userServerError(getRussianTranslation('error_500')));
             });
     };
 }
