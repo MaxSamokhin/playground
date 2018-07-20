@@ -18,7 +18,7 @@ export default class FormItem extends React.Component<IProps, null> {
         return (
                 <div className={'form-item'}>
                     <label className={'form-item__name'}>{label}</label>
-                    <div className="form-item__input">
+                    <div className={'form-item__input'}>
                         <Input
                             type={type}
                             placeholder={placeholder}

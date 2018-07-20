@@ -20,5 +20,16 @@
     color: white;
     cursor: pointer;
   }
+
+  &_disabled {
+    cursor: auto;
+    background-color: rgb(187, 184, 179);
+
+    &:hover {
+      cursor: auto;
+      background-color: rgb(187, 184, 179);
+      color: #000000;
+    }
+  }
 }
 

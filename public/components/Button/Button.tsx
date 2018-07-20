@@ -7,8 +7,9 @@ interface IProps {
     typeBtn: string;
     text: string;
     pathTo?: string;
-    onClickButton?: () => void;
+    onClickButton?: (e: any) => void;
     formBtn?: boolean;
+    disabled?: boolean;
 }
 
 export default class Button extends React.Component<IProps, null> {
@@ -18,11 +19,12 @@ export default class Button extends React.Component<IProps, null> {
 
     public render(): JSX.Element {
 
-        const {typeBtn, text, pathTo, onClickButton, formBtn} = this.props;
+        const {typeBtn, text, pathTo, onClickButton, formBtn, disabled} = this.props;
 
         const componentClasses = classnames({
             button: true,
-            form__button: formBtn
+            form__button: formBtn,
+            button_disabled: disabled
         });
 
         return (
@@ -30,7 +32,8 @@ export default class Button extends React.Component<IProps, null> {
                 <button
                     className={componentClasses}
                     type={typeBtn}
-                    onClick={onClickButton}>
+                    onClick={onClickButton}
+                    disabled={disabled}>
                     {text}
                 </button>
             </ButtonLink>

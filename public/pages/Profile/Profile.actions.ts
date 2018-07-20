@@ -19,7 +19,7 @@ export const profileNotFound = (message: string) => ({
     payload: getRussianTranslation(message)
 });
 
-export const profileErrorServer = (message:string) => ({
+export const profileErrorServer = (message: string) => ({
     type: PROFILE_ERROR_SERVER,
     payload: {
         errorMsg: message

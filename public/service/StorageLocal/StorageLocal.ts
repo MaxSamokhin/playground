@@ -1,64 +1,46 @@
-import store from "../../store/Store";
 const KEY_STORE = 'store';
-import eventEmitter from '../../service/EventEmitter/eventEmitter';
 
 interface IItem {
-    id: string,
-    text: string,
-    isComplete: boolean
+    id: string;
+    text: string;
+    isChecked: boolean;
 }
 
 export default class StorageLocal {
     constructor() {
-        let store = localStorage[KEY_STORE];
-        if(!store)
+        const store = localStorage[KEY_STORE];
+        if (!store) {
             this._setJSON(KEY_STORE, {store: []});
+        }
     }
 
     public add(text) {
         const item: IItem = {
             id: this.generateId(),
-            text: text,
-            isComplete: false
+            text,
+            isChecked: false
         };
 
         const stor = this._getJSON(KEY_STORE);
         stor.store.push(item);
         this._setJSON(KEY_STORE, stor);
-
-        eventEmitter.emit('ADD_NOTE', null);
     }
 
-    public delete(id) {
+    public delete(ids: Array<string>) {
         const stor = this._getJSON(KEY_STORE);
-        const index = stor.store.find(elem => elem.id === id);
-        if (!index) {
-            return;
-        }
-        stor.store.slice(index, 1);
-        this._setJSON(KEY_STORE, store);
-    }
-
-    public change(id, text, completed) {
-        const stor = this._getJSON(KEY_STORE);
-        const index = stor.store.find(elem => elem.id === id);
-        if (!index) {
-            return;
-        }
-
-        stor.store[index] = {
-            id: id,
-            text: text,
-            isComplete: completed
-        };
-
+        stor.store = stor.store.reduce((res, elem) => {
+            if (ids.indexOf(elem.id) !== -1) {
+                return res;
+            }
+            res.push(elem);
+            return res;
+        }, []);
         this._setJSON(KEY_STORE, stor);
     }
 
     public getAll() {
         return this._getJSON(KEY_STORE);
     }
-
 
     private _setJSON(key, value) {
         try {

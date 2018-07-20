@@ -2,9 +2,10 @@ import * as React from 'react';
 import './UserCheckbox.scss';
 
 interface IProps {
-    label: string;
-    defaultChecked: boolean;
+    label?: string;
     onCheckRuleClick: (e: any) => void;
+    val?: string;
+    checked?: boolean;
 }
 
 export default class UserCheckbox extends React.Component<IProps, null> {
@@ -13,18 +14,23 @@ export default class UserCheckbox extends React.Component<IProps, null> {
     }
 
     public render(): JSX.Element {
-        const {label, defaultChecked, onCheckRuleClick} = this.props;
+        const {label, onCheckRuleClick, val, checked} = this.props;
         return (
-            <div className="checkbox">
+            <div className={'checkbox'}>
                 <input
                     className={'checkbox__input'}
                     type='checkbox'
-                    defaultChecked={defaultChecked}
                     onChange={onCheckRuleClick}
+                    value={val}
+                    checked={checked}
                 />
-                <label className={'checkbox__label'}>
-                    {label}
-                </label>
+                {label ?
+                    <label className={'checkbox__label'}>
+                        {label}
+                    </label> :
+                    ''
+                }
+
             </div>
         );
     }
